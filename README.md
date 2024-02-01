@@ -17,7 +17,7 @@
 ### 有Qt帳號者
 * 開啟Qt online installer 或 Qt maintance tool
 * 安裝Qt6->Desktop gcc 64-bit、Sources、Additional Libraries
-* 在專案資料夾中執行以下命令
+* 在IDE直接編譯或在專案資料夾中執行以下命令
 ```
 cmake -DCMAKE_PREFIX_PATH=你的Qt安裝目錄/版本/gcc_64 -S $PWD -B $PWD/build
 cd build
