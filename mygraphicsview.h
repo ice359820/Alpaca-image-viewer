@@ -13,9 +13,6 @@ public:
     MyGraphicsView(QWidget *parent = nullptr);
 protected:
     virtual void wheelEvent(QWheelEvent *event) override ;
-private:
-    MyGraphicsView *view;
-    double scaleFactor;
 };
 
 #endif // MYGRAPHICSVIEW_H

@@ -57,6 +57,7 @@ bool Viewer::loadFile(const QString &fileName)
     resize( QSize( newImage.width(), newImage.height() + ui->menubar->sizeHint().height() ) );
 
     if (scene != nullptr) {
+        ui->graphicsView->resetTransform();
         movie.stop();
         delete scene;
     }
