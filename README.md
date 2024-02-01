@@ -12,7 +12,11 @@ Apply Qt::SmoothTransformation bilinear filtering
 
 套用雙線性過濾
 
-## unfinished:
+## Unfinished:
+reset zoom in, zomm out
+
+重設縮放
+
 help->shortcut, about
 
 Window size limitations and adjustments
