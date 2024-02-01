@@ -28,7 +28,7 @@ Viewer::Viewer(QWidget *parent)
     scene = nullptr;
 
     // remove margin that between QMainWindow and layout in centralWidget
-    QMainWindow *m = &(*this);
+    QMainWindow *m = this;
     QWidget *w = m->centralWidget();
     w->layout()->setContentsMargins(0, 0, 0, 0);
 
