@@ -1,7 +1,8 @@
 CMakeLists.txt.user
 Debug/
-MinSizeRel/
 Release/
 Profile/
+MinSizeRel/
+RelWithDebInfo/
 "signal slot 注意.png"
 
