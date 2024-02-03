@@ -2,7 +2,6 @@
 #include "./ui_viewer.h"
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QDebug>
 
 int main(int argc, char *argv[])
 {
