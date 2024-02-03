@@ -24,5 +24,5 @@
 ```
 cmake -DCMAKE_PREFIX_PATH=你的Qt安裝目錄/版本/gcc_64 -S $PWD -B $PWD/build
 cd build
-make
+cmake --build $PWD --target all
 ```
