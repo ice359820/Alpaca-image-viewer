@@ -41,6 +41,10 @@ Viewer::~Viewer()
     delete ui;
 }
 
+void Viewer::resizeEvent(QResizeEvent *event){
+    qDebug() << size();
+}
+
 bool Viewer::loadFile(const QString &fileName)
 {
     QImageReader reader(fileName);
@@ -53,8 +57,9 @@ bool Viewer::loadFile(const QString &fileName)
         return false;
     }
 
-    setWindowFilePath(fileName);    // If not set the window title, sets the window title to the file name
-    resize( QSize( newImage.width(), newImage.height() + ui->menubar->sizeHint().height() ) );
+    setWindowFilePath(fileName);
+    setWindowTitle( tr("%1 - %2x%3").arg(windowFilePath()).arg(newImage.width()).arg(newImage.height()) );
+    resize( QSize( newImage.width()+2, newImage.height() + ui->menubar->sizeHint().height()+2 ) );
 
     if (scene != nullptr) {
         ui->graphicsView->resetTransform();

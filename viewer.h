@@ -24,6 +24,8 @@ public:
 
     bool loadFile(const QString &fileName);
 
+protected:
+    void resizeEvent(QResizeEvent *event);
 private slots:
     void open();
     void drawFrame();
