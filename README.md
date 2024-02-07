@@ -22,6 +22,7 @@
 * 開啟檔案dialog中，更完整的mimetype過濾
 
 ## Build
+### Linux
 * 準備一個Qt帳號，下載Qt online installer
 * 開啟Qt online installer 或 Qt maintance tool
 * 下載選擇Qt6->Desktop gcc 64-bit、Sources、Additional Libraries
