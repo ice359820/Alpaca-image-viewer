@@ -2,6 +2,11 @@
 
 我的Qt試做品
 
+## dependency
+```
+libqt6widgets6 libqt6gui6 libqt6core6 libqt6dbus6 libicu70
+```
+
 ## 使用
 * 直接點擊AlpacaImageViewer然後開啟檔案
 * 或以command line使用
