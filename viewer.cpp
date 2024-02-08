@@ -59,7 +59,7 @@ bool Viewer::loadFile(const QString &fileName)
 
     setWindowFilePath(fileName);
     setWindowTitle( tr("%1 - %2x%3").arg(windowFilePath()).arg(newImage.width()).arg(newImage.height()) );
-    resize( QSize( newImage.width()+2, newImage.height() + ui->menubar->sizeHint().height()+2 ) );
+    resize( QSize( newImage.width()+2, newImage.height() + ui->menubar->sizeHint().height()+3 ) );
 
     if (scene != nullptr) {
         ui->graphicsView->resetTransform();
