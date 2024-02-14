@@ -25,3 +25,13 @@ void MyGraphicsView::wheelEvent(QWheelEvent *event)
         ;
     }
 }
+
+void MyGraphicsView::mousePressEvent(QMouseEvent *event)
+{
+    if ( event->button() == Qt::MiddleButton ) {
+        this->resetTransform();
+    }
+    else {
+        QGraphicsView::mousePressEvent(event);
+    }
+}

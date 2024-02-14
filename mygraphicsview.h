@@ -12,7 +12,8 @@ class MyGraphicsView : public QGraphicsView
 public:
     MyGraphicsView(QWidget *parent = nullptr);
 protected:
-    virtual void wheelEvent(QWheelEvent *event) override ;
+    virtual void wheelEvent(QWheelEvent *event) override;
+    virtual void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif // MYGRAPHICSVIEW_H

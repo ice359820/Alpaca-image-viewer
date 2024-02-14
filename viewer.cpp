@@ -19,6 +19,10 @@
 #include <QStringList>
 #include <QStandardPaths>
 #include <QDialog>
+#include <QStyle>
+#include <QShortcut>
+#include <QKeySequence>
+#include <Qt>
 
 Viewer::Viewer(QWidget *parent)
     : QMainWindow(parent)
@@ -34,6 +38,9 @@ Viewer::Viewer(QWidget *parent)
 
     connect( ui->actionOpen, &QAction::triggered, this, &Viewer::open );
     connect( &movie, &QMovie::updated, this, &Viewer::drawFrame );
+
+    QShortcut *shortcut_fullscreen = new QShortcut( QKeySequence(Qt::Key_F), this);
+    connect( shortcut_fullscreen, &QShortcut::activated, this, &Viewer::changeFullScreen );
 }
 
 Viewer::~Viewer()
@@ -41,8 +48,46 @@ Viewer::~Viewer()
     delete ui;
 }
 
-void Viewer::resizeEvent(QResizeEvent *event){
-    qDebug() << size();
+void Viewer::changeFullScreen()
+{
+    if ( this->windowState() != Qt::WindowState::WindowFullScreen ) {
+        this->setWindowState(Qt::WindowState::WindowFullScreen);
+    }
+    else {
+        this->setWindowState(Qt::WindowState::WindowNoState);
+    }
+}
+
+void Viewer::adjustWindowSize( QSize imageSize )
+{
+    QSize availableSize = QApplication::primaryScreen()->availableSize(); // not include bottom tool bar and system menu
+    QSize windowSize( imageSize.width()+5, imageSize.height() + ui->menubar->sizeHint().height()+5 ); // not include title bar
+    int titleBarHeight = this->style()->pixelMetric(QStyle::PM_TitleBarHeight);
+
+    if ( windowSize.width() <= availableSize.width() && windowSize.height() + titleBarHeight <= availableSize.height() ) {
+        resize( QSize( windowSize.width(), windowSize.height() ) );
+    }
+    else {
+        while ( windowSize.width() > availableSize.width() || windowSize.height() + titleBarHeight > availableSize.height() ) {
+            ui->graphicsView->scale(0.8, 0.8);
+            imageSize *= 0.8;
+            windowSize.setWidth(imageSize.width()+5);
+            windowSize.setHeight(imageSize.height() + ui->menubar->sizeHint().height()+5);
+        }
+        resize( QSize( windowSize.width(), windowSize.height() ) );
+    }
+}
+
+void Viewer::resizeEvent(QResizeEvent *event)
+{
+    if ( this->windowState() == Qt::WindowState::WindowFullScreen ) { // fullscreen
+        ui->menubar->setVisible(false);
+    }
+    else {
+        if ( ! ui->menubar->isVisible() ) {
+            ui->menubar->setVisible(true);
+        }
+    }
 }
 
 bool Viewer::loadFile(const QString &fileName)
@@ -59,7 +104,6 @@ bool Viewer::loadFile(const QString &fileName)
 
     setWindowFilePath(fileName);
     setWindowTitle( tr("%1 - %2x%3").arg(windowFilePath()).arg(newImage.width()).arg(newImage.height()) );
-    resize( QSize( newImage.width()+2, newImage.height() + ui->menubar->sizeHint().height()+3 ) );
 
     if (scene != nullptr) {
         ui->graphicsView->resetTransform();
@@ -67,17 +111,19 @@ bool Viewer::loadFile(const QString &fileName)
         delete scene;
     }
     scene = new QGraphicsScene();
-    graphicsPixmapItem = scene->addPixmap(QPixmap::fromImage(newImage));   // initialize
+    graphicsPixmapItem = scene->addPixmap(QPixmap::fromImage(newImage));
 
     if (reader.supportsAnimation()) {        
         movie.setFileName(fileName);
         graphicsPixmapItem->setTransformationMode(Qt::SmoothTransformation);
         ui->graphicsView->setScene(scene);
+        adjustWindowSize(newImage.size());
         movie.start();
     }
     else {
         graphicsPixmapItem->setTransformationMode(Qt::SmoothTransformation);
         ui->graphicsView->setScene(scene);
+        adjustWindowSize(newImage.size());
     }
     return true;
 }

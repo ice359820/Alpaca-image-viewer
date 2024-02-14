@@ -23,13 +23,13 @@ public:
     ~Viewer();
 
     bool loadFile(const QString &fileName);
-
+    void adjustWindowSize(QSize imageSize);
 protected:
     void resizeEvent(QResizeEvent *event);
 private slots:
     void open();
     void drawFrame();
-
+    void changeFullScreen();
 private:
     Ui::Viewer *ui;
     QGraphicsScene *scene;
