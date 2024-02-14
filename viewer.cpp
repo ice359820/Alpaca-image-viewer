@@ -22,7 +22,8 @@
 #include <QStyle>
 #include <QShortcut>
 #include <QKeySequence>
-#include <Qt>
+#include <Qt>               // Qt namespace
+#include <cmath>            // fabs()
 
 Viewer::Viewer(QWidget *parent)
     : QMainWindow(parent)
@@ -30,11 +31,7 @@ Viewer::Viewer(QWidget *parent)
 {
     ui->setupUi(this);
     scene = nullptr;
-
-    // remove margin that between QMainWindow and layout in centralWidget
-    QMainWindow *m = this;
-    QWidget *w = m->centralWidget();
-    w->layout()->setContentsMargins(0, 0, 0, 0);
+    graphicsPixmapItem = nullptr;
 
     connect( ui->actionOpen, &QAction::triggered, this, &Viewer::open );
     connect( &movie, &QMovie::updated, this, &Viewer::drawFrame );
@@ -82,6 +79,24 @@ void Viewer::resizeEvent(QResizeEvent *event)
 {
     if ( this->windowState() == Qt::WindowState::WindowFullScreen ) { // fullscreen
         ui->menubar->setVisible(false);
+
+        if ( graphicsPixmapItem == nullptr ) {
+            return ;
+        }
+        // resize image view to fit fullscreen
+        QSize pixmapSize = graphicsPixmapItem->pixmap().size();
+        QSize screenResolution = QApplication::primaryScreen()->size();
+        double widthRatio = screenResolution.width()*1.0 / (pixmapSize.width()*1.0);
+        double heightRatio = screenResolution.height()*1.0 / (pixmapSize.height()*1.0);
+
+        ui->graphicsView->resetTransform();
+        // determine who is more approaches to 1
+        if ( fabs(1.0 - widthRatio) < fabs(1.0 - heightRatio) ) {
+            ui->graphicsView->scale(widthRatio, widthRatio);
+        }
+        else {
+            ui->graphicsView->scale(heightRatio, heightRatio);
+        }
     }
     else {
         if ( ! ui->menubar->isVisible() ) {

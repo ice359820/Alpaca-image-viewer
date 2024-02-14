@@ -10,7 +10,8 @@
 MyGraphicsView::MyGraphicsView(QWidget *parent) // parent is ui->centralwidget
     : QGraphicsView(parent)                     // call parent's constructor
 {
-    ;
+    this->setStyleSheet("border-width: 0px;"
+                        "border-style: none;" );
 }
 
 void MyGraphicsView::wheelEvent(QWheelEvent *event)
@@ -20,9 +21,6 @@ void MyGraphicsView::wheelEvent(QWheelEvent *event)
     }
     else if (event->angleDelta().y() < 0 && this->transform().m11() > minScale ) {
         this->scale(0.8, 0.8);
-    }
-    else {
-        ;
     }
 }
 
