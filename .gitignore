@@ -1,6 +1,4 @@
 CMakeLists.txt.user
-README.md
-LICENSE
 Debug/
 Release/
 Profile/
