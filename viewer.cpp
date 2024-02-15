@@ -23,7 +23,6 @@
 #include <QShortcut>
 #include <QKeySequence>
 #include <Qt>               // Qt namespace
-#include <cmath>            // fabs()
 
 Viewer::Viewer(QWidget *parent)
     : QMainWindow(parent)
@@ -81,7 +80,8 @@ void Viewer::resizeEvent(QResizeEvent *event)
         ui->menubar->setVisible(false);
 
         if ( graphicsPixmapItem == nullptr ) {
-            return ;
+            QMainWindow::resizeEvent(event);
+            return;
         }
         // resize image view to fit fullscreen
         QSize pixmapSize = graphicsPixmapItem->pixmap().size();
@@ -90,8 +90,7 @@ void Viewer::resizeEvent(QResizeEvent *event)
         double heightRatio = screenResolution.height()*1.0 / (pixmapSize.height()*1.0);
 
         ui->graphicsView->resetTransform();
-        // determine who is more approaches to 1
-        if ( fabs(1.0 - widthRatio) < fabs(1.0 - heightRatio) ) {
+        if ( widthRatio <= heightRatio ) {
             ui->graphicsView->scale(widthRatio, widthRatio);
         }
         else {
