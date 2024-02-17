@@ -42,8 +42,8 @@ cmake --build $PWD --target all
 * 下載選擇Qt6->MinGW 64、Sources、Additional Libraries
 * 在Qt Creaotr編譯
 * 找出編譯完成的AlpacaImageViewer.exe
-* 在Qt安裝目錄\版本\mingw\bin中找出windeployqt.exe
-* 開啟cmd輸入：
+* 在Qt安裝目錄\版本\mingw\bin中找出windeployqt6.exe
+* 在AlpacaImageViewer.exe所在的目錄下開啟PowerShell輸入：
 ```
-windeployqt.exe 可執行檔的路徑\AlpacaImageViewer.exe
+路徑到\windeployqt.exe AlpacaImageViewer.exe
 ```
