@@ -11,7 +11,9 @@ MyGraphicsView::MyGraphicsView(QWidget *parent) // parent is ui->centralwidget
     : QGraphicsView(parent)                     // call parent's constructor
 {
     this->setStyleSheet("border-width: 0px;"
-                        "border-style: none;" );
+                        "border-style: none;"
+                        "background-color: #202020"
+                        );
 }
 
 void MyGraphicsView::wheelEvent(QWheelEvent *event)

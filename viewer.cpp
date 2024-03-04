@@ -57,7 +57,7 @@ void Viewer::changeFullScreen()
 void Viewer::adjustWindowSize( QSize imageSize )
 {
     QSize availableSize = QApplication::primaryScreen()->availableSize(); // not include bottom tool bar and system menu
-    QSize windowSize( imageSize.width()+5, imageSize.height() + ui->menubar->sizeHint().height()+5 ); // not include title bar
+    QSize windowSize( imageSize.width(), imageSize.height() + ui->menubar->sizeHint().height() ); // not include title bar
     int titleBarHeight = this->style()->pixelMetric(QStyle::PM_TitleBarHeight);
 
     if ( windowSize.width() <= availableSize.width() && windowSize.height() + titleBarHeight <= availableSize.height() ) {
@@ -67,8 +67,8 @@ void Viewer::adjustWindowSize( QSize imageSize )
         while ( windowSize.width() > availableSize.width() || windowSize.height() + titleBarHeight > availableSize.height() ) {
             ui->graphicsView->scale(0.8, 0.8);
             imageSize *= 0.8;
-            windowSize.setWidth(imageSize.width()+5);
-            windowSize.setHeight(imageSize.height() + ui->menubar->sizeHint().height()+5);
+            windowSize.setWidth(imageSize.width());
+            windowSize.setHeight(imageSize.height() + ui->menubar->sizeHint().height());
         }
         resize( QSize( windowSize.width(), windowSize.height() ) );
     }
