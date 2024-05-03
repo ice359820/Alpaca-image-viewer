@@ -17,14 +17,13 @@ set(PROJECT_SOURCES
         viewer.cpp
         viewer.h
         viewer.ui
+        mygraphicsview.h mygraphicsview.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(AlpacaImageViewer
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        mygraphicsview.h mygraphicsview.cpp
-
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET AlpacaImageViewer APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -44,7 +43,7 @@ else()
     endif()
 endif()
 
-target_include_directories(AlpacaImageViewer PRIVATE ${CMAKE_SOURCE_DIR}) # Manual Add
+# target_include_directories(AlpacaImageViewer PRIVATE ${CMAKE_SOURCE_DIR}) # Manual Add
 target_link_libraries(AlpacaImageViewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

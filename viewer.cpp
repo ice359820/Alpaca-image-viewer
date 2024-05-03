@@ -127,7 +127,7 @@ bool Viewer::loadFile(const QString &fileName)
     scene = new QGraphicsScene();
     graphicsPixmapItem = scene->addPixmap(QPixmap::fromImage(newImage));
 
-    if (reader.supportsAnimation()) {        
+    if (reader.supportsAnimation()) {
         movie.setFileName(fileName);
         graphicsPixmapItem->setTransformationMode(Qt::SmoothTransformation);
         ui->graphicsView->setScene(scene);

@@ -25,7 +25,7 @@ public:
     bool loadFile(const QString &fileName);
     void adjustWindowSize(QSize imageSize);
 protected:
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 private slots:
     void open();
     void drawFrame();

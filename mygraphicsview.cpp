@@ -12,7 +12,7 @@ MyGraphicsView::MyGraphicsView(QWidget *parent) // parent is ui->centralwidget
 {
     this->setStyleSheet("border-width: 0px;"
                         "border-style: none;"
-                        "background-color: #202020"
+                        "background-color: #343434"
                         );
 }
 
